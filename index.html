@@ -25,8 +25,8 @@
             box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%), 0 25px 50px 0 rgb(0 0 0 / 10%);
         }
 
-        .header {
-
+        .destroy:hover{
+            background: #ccc;
         }
 
         .header h1 {
@@ -87,7 +87,7 @@
             float: left;
             margin-right: 10px;
             cursor: pointer;
-            padding: 10px;
+            padding: 8px 10px;
             border-radius: 5px;
         }
 
@@ -145,7 +145,7 @@
     <section class="main">
         <input class="new-todo" placeholder="What needs to be done?" value="">
         <div class="toggle-wrap">
-            <input class="toggle-all" type="checkbox">
+            <input class="toggle-all" type="checkbox" value="">
         </div>
         <ul class="todo-list">
             <li class="completed">
@@ -182,5 +182,15 @@
         <button class="clear-completed">Clear completed</button>
     </footer>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(".toggle-all").click(function() {
+        if($('.toggle-all').is(':checked')){
+            $(".toggle").attr('checked', true);
+        }else{
+            $(".toggle").attr('checked', false);
+        }
+    });
+</script>
 </body>
 </html>
