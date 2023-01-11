@@ -148,29 +148,27 @@
             <input class="toggle-all" type="checkbox" value="">
         </div>
         <ul class="todo-list">
-            <li class="completed">
-                <div class="view">
-                    <input class="toggle" type="checkbox">
-                    <input class="edit" value="learn english" disabled>
-                    <button class="destroy">X</button>
-                </div>
-                <div class="view">
-                    <input class="toggle" type="checkbox">
-                    <input class="edit" value="learn english" disabled>
-                    <button class="destroy">X</button>
-                </div>
-                <div class="view">
-                    <input class="toggle" type="checkbox">
-                    <input class="edit" value="learn english" disabled>
-                    <button class="destroy">X</button>
-                </div>
+            <li class="view">
+                <input class="toggle" type="checkbox">
+                <input class="edit" value="learn english" disabled>
+                <button class="destroy">X</button>
+            </li>
+            <li class="view">
+                <input class="toggle" type="checkbox">
+                <input class="edit" value="learn english" disabled>
+                <button class="destroy">X</button>
+            </li>
+            <li class="view">
+                <input class="toggle" type="checkbox">
+                <input class="edit" value="learn english" disabled>
+                <button class="destroy">X</button>
             </li>
         </ul>
     </section>
     <br>
     <footer class="footer">
         <span class="todo-count">
-            <strong>0</strong>
+            <strong class="total-todo-active">0</strong>
             <span>items</span>
             <span>left</span>
         </span>
@@ -185,12 +183,40 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     $(".toggle-all").click(function() {
+        console.log($(".destroy"))
         if($('.toggle-all').is(':checked')){
-            $(".toggle").attr('checked', true);
+            $(".toggle").each(function(){
+                this.checked = true;
+                $(this).next().css('text-decoration', 'line-through');
+                $('.total-todo-active').text('0');
+            });
         }else{
-            $(".toggle").attr('checked', false);
+            $(".toggle").each(function(){
+                this.checked = false;
+                $(this).next().css('text-decoration', 'unset');
+                $('.total-todo-active').text($('.view').length)
+            });
         }
     });
+
+    $(".new-todo").keypress(function(e) {
+        if(e.which == 13) {
+            $('.todo-list').append(`<div class="view">
+                    <input class="toggle" type="checkbox">
+                    <input class="edit" value="${$(this).val()}" disabled>
+                    <button class="destroy">X</button>
+                </div>`);
+            $(this).val('');
+            $('.total-todo-active').text($('.view').length)
+        }
+    });
+
+    $(".destroy").click(function() {
+        console.log($(this).parent())
+        $(this).parent().remove();
+        $('.total-todo-active').html($('.view').length);
+    })
+
 </script>
 </body>
 </html>
