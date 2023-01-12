@@ -6,136 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>To Do List With Jquery</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: sans-serif;
-        }
-
-        .container {
-            width: 700px;
-            margin: 16px auto;
-            padding: 20px;
-            background: #fff;
-            box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%), 0 25px 50px 0 rgb(0 0 0 / 10%);
-        }
-
-        .destroy:hover{
-            background: #ccc;
-        }
-
-        .header h1 {
-            width: 100%;
-            font-size: 100px;
-            font-weight: 100;
-            text-align: center;
-        }
-
-        .main > input {
-            width: 100%;
-            font-size: 18px;
-            padding: 16px;
-            padding-left: 50px;
-            border: none;
-            outline: none;
-            box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%), 0 25px 50px 0 rgb(0 0 0 / 10%);
-        }
-
-        .todo-list {
-            list-style: none;
-        }
-
-        .view {
-            display: flex;
-            justify-content: space-between;
-            box-shadow: 0 2px 1px 0 rgb(0 0 0 / 8%), 0 1px 1px 0 rgb(0 0 0 / 8%);
-            margin: 8px 0;
-        }
-
-        .view input.edit {
-            width: 90%;
-            font-size: 16px;
-            padding: 10px;
-            border: none;
-            outline: none;
-        }
-
-        .view input.toggle {
-            width: 3%;
-            padding: 12px;
-            margin-left: 10px;
-        }
-
-        .filters {
-            list-style: none;
-        }
-
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 2px solid #eee;
-            padding: 20px 12px;
-        }
-
-        .filters li {
-            float: left;
-            margin-right: 10px;
-            cursor: pointer;
-            padding: 8px 10px;
-            border-radius: 5px;
-        }
-
-        .filters li.active {
-            background: deeppink;
-            color: #fff;
-        }
-
-        .clear-completed {
-            padding: 8px 12px;
-            cursor: pointer;
-        }
-
-        .main {
-            position: relative;
-        }
-
-        .toggle-wrap {
-            z-index: 10;
-            position: absolute;
-            top: 15px;
-            left: 10px;
-            cursor: pointer;
-        }
-
-        .toggle-all {
-            height: 20px;
-            width: 20px;
-        }
-
-        .clear-completed {
-            font-size: 15px;
-            border: none;
-            border-radius: 4px;
-        }
-
-        .clear-completed:hover {
-            background: deeppink;
-            color: #fff
-        }
-
-        .destroy {
-            padding: 12px;
-            border: none;
-            cursor: pointer;
-        }
-
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div class="container">
@@ -145,25 +16,15 @@
     <section class="main">
         <input class="new-todo" placeholder="What needs to be done?" value="">
         <div class="toggle-wrap">
-            <input class="toggle-all" type="checkbox" value="">
+            <label name="toggle-all-label" for="toggle-all">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+
+            </label>
+            <input class="toggle-all" id="toggle-all" type="checkbox" value="">
         </div>
-        <ul class="todo-list">
-            <li class="view">
-                <input class="toggle" type="checkbox">
-                <input class="edit" value="learn english" disabled>
-                <button class="destroy">X</button>
-            </li>
-            <li class="view">
-                <input class="toggle" type="checkbox">
-                <input class="edit" value="learn english" disabled>
-                <button class="destroy">X</button>
-            </li>
-            <li class="view">
-                <input class="toggle" type="checkbox">
-                <input class="edit" value="learn english" disabled>
-                <button class="destroy">X</button>
-            </li>
-        </ul>
+        <ul class="todo-list"></ul>
     </section>
     <br>
     <footer class="footer">
@@ -173,49 +34,172 @@
             <span>left</span>
         </span>
         <ul class="filters">
-            <li class="active"><span class="selected">All</span></li>
-            <li><span class="selected">Active</span></li>
-            <li><span class="selected">Completed</span></li>
+            <li class="active all selected">All</li>
+            <li class="selected to-do-active"><span class="">Active</span></li>
+            <li class="selected to-do-completed">Completed</li>
         </ul>
         <button class="clear-completed">Clear completed</button>
     </footer>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="js/jquery.js"></script>
 <script>
-    $(".toggle-all").click(function() {
-        console.log($(".destroy"))
-        if($('.toggle-all').is(':checked')){
-            $(".toggle").each(function(){
-                this.checked = true;
-                $(this).next().css('text-decoration', 'line-through');
-                $('.total-todo-active').text('0');
-            });
-        }else{
-            $(".toggle").each(function(){
-                this.checked = false;
-                $(this).next().css('text-decoration', 'unset');
-                $('.total-todo-active').text($('.view').length)
+    $(document).ready(function () {
+        selectState();
+        addTodoItem();
+        checkboxAllAction();
+        destroyTodoItem();
+        selectToDoItem();
+        editTodoItem();
+        deleteToDoListCompleted();
+        isShowFooter();
+
+        function isShowFooter(){
+            if($(".view").length) {
+                $('.footer').show();
+            }else{
+                $('.footer').hide();
+            }
+        }
+
+        function updateTotalTodoListActive(){
+            $('.total-todo-active').text($('.view:has(.active)').length);
+        }
+
+        function deleteToDoListCompleted() {
+            $(".clear-completed").click(function () {
+                $(".view:has(.completed)").remove();
+                isShowFooter();
+            })
+        }
+
+        function checkboxAllAction() {
+            $(".toggle-all").click(function () {
+                if ($('.toggle-all').is(':checked')) {
+                    $(".toggle").each(function () {
+                        this.checked = true;
+                        $(this).next().css('text-decoration', 'line-through');
+                        $(this).next().addClass('completed');
+                        $(this).next().removeClass('active');
+                        $('.total-todo-active').text('0');
+                    });
+                } else {
+                    $(".toggle").each(function () {
+                        this.checked = false;
+                        $(this).next().css('text-decoration', 'unset');
+                        $(this).next().removeClass('completed');
+                        $(this).next().addClass('active');
+                        updateTotalTodoListActive();
+                    });
+                }
             });
         }
-    });
 
-    $(".new-todo").keypress(function(e) {
-        if(e.which == 13) {
-            $('.todo-list').append(`<div class="view">
-                    <input class="toggle" type="checkbox">
-                    <input class="edit" value="${$(this).val()}" disabled>
-                    <button class="destroy">X</button>
-                </div>`);
-            $(this).val('');
-            $('.total-todo-active').text($('.view').length)
+        function addTodoItem() {
+            $(".new-todo").keypress(function (e) {
+                if (e.which == 13 && $(this).val().length > 0) {
+                    $('.todo-list').append(`<li class="view">
+
+                        <input class="toggle" type="checkbox" ${$('.toggle-all').is(':checked') || $(".to-do-completed.active").length ? 'checked' : ''}>
+                        <input class="edit ${$('.toggle-all').is(':checked') || $(".to-do-completed.active").length ? 'completed line-through' : 'active'}" value="${$(this).val()}" disabled>
+                        <button class="destroy">X</button>
+                    </li>`);
+                    updateTotalTodoListActive();
+                    $(this).val('');
+                    isShowFooter();
+                }
+            });
+        }
+
+        function destroyTodoItem() {
+            $(document).on('click', '.destroy', function () {
+                $(this).parent().remove();
+                $('.total-todo-active').text($('.view').length);
+                updateTotalTodoListActive();
+                isShowFooter();
+            })
+        }
+
+        function selectToDoItem() {
+            $(document).on('click', '.toggle', function () {
+                if($(".all.active").length) {
+                    if ($(this).is(':checked')) {
+                        $(this).next().css('text-decoration', 'line-through');
+                        $(this).next().addClass('completed');
+                        $(this).next().removeClass('active');
+                    } else {
+                        $(this).next().removeClass('completed');
+                        $(this).next().addClass('active');
+                        $(this).next().css('text-decoration', 'unset');
+                    }
+                }
+                if($(".to-do-active.active").length){
+                    $(this).next().addClass('completed');
+                    $(this).next().removeClass('active');
+                    $(this).parent().hide();
+                }
+
+                if($(".to-do-completed.active").length) {
+                    $(this).next().addClass('active');
+                    $(this).next().removeClass('completed');
+                    $(this).parent().hide();
+                }
+                updateTotalTodoListActive();
+            })
+        }
+
+        function editTodoItem() {
+            $(document).on('dblclick', '.view:has(.edit)', function (e) {
+                $(this).find('.edit').removeAttr("disabled");
+                $(this).find('.edit').css('text-decoration', 'unset');
+                $(this).find('.edit').focus();
+            })
+
+            $(document).on('focusout', '.view:has(.edit)', function () {
+                $(this).find('.edit').attr('disabled', false)
+            })
+
+            $(document).on('blur', '.view:has(.edit)', function (e) {
+                $(this).find('.edit').attr('disabled', 'disabled');
+                if ($(this).find('.edit').val().length == 0) {
+                    $(this).remove();
+                    isShowFooter();
+                }
+                if ($(this).find('.edit').hasClass("completed")) {
+                    $(this).find('.edit').css('text-decoration', 'line-through');
+                }
+            })
+        }
+
+        function selectState() {
+            //click to do list active button
+            $(".to-do-active").click(function () {
+                $('.filters').children().removeClass('active');
+                $(this).addClass('active');
+                $(".view:has(.completed)").hide();
+                $(".view:has(.active)").show();
+                // $(".toggle-all").checked = false;
+                // $(".toggle-all").attr("disabled", true);
+            })
+
+            //click to do list completed button
+            $(".to-do-completed").click(function () {
+                $('.filters').children().removeClass('active');
+                $(this).addClass('active');
+                $(".view:has(.active)").hide();
+                $(".view:has(.completed)").show();
+                // $(".toggle-all").hide();
+                $(".toggle-all").checked = false;
+            })
+
+            //click to do list all button
+            $(".all").click(function () {
+                $('.filters').children().removeClass('active');
+                $(this).addClass('active');
+                $(".view").show();
+                $(".toggle-all").show();
+            })
         }
     });
-
-    $(".destroy").click(function() {
-        console.log($(this).parent())
-        $(this).parent().remove();
-        $('.total-todo-active').html($('.view').length);
-    })
 
 </script>
 </body>
