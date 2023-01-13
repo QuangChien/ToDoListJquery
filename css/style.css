@@ -64,8 +64,11 @@ body {
 }
 
 .view input.edit:disabled{
-
     border: none;
+}
+
+.view input.edit::selection {
+    user-select: none;
 }
 
 
@@ -100,6 +103,14 @@ body {
     color: #fff;
 }
 
+.completed {
+    opacity: 0.4;
+}
+
+.completed:not([disabled]){
+    opacity: 1;
+}
+
 .clear-completed {
     padding: 8px 12px;
     cursor: pointer;
@@ -115,13 +126,13 @@ body {
     top: 15px;
     left: 10px;
     cursor: pointer;
-    /*display: none;*/
+    display: none;
 }
 
 .toggle-all {
     height: 20px;
     width: 20px;
-    /*opacity: 0;*/
+    opacity: 0;
 }
 
 .toggle-all-label{
