@@ -49,6 +49,7 @@ function deleteToDoListCompleted() {
         $(".view:has(.completed)").remove();
         isShowFooter();
         isShowLabelCheckboxAll();
+        isShowClearCompleted();
     })
 }
 
@@ -129,7 +130,10 @@ function addTodoItem() {
             $('.todo-list').append(`<li class="view">
                         <input class="toggle" type="checkbox">
                         <input class="edit active" value="${$(this).val()}" disabled>
-                        <button class="destroy">X</button>
+                        <button class="destroy"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
                     </li>`);
             updateTotalTodoListActive();
             $(this).val('');
