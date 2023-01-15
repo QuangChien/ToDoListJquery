@@ -65,6 +65,7 @@ function checkboxAllAction() {
                     $(this).next().removeClass('active');
                     $('.total-todo-active').text('0');
                 });
+                $('.toggle-all').parent().find('.toggle-all-svg').css('opacity', '1');
             } else {
                 $(".toggle").each(function () {
                     this.checked = false;
@@ -73,6 +74,7 @@ function checkboxAllAction() {
                     $(this).next().addClass('active');
                     updateTotalTodoListActive();
                 });
+                $('.toggle-all').parent().find('.toggle-all-svg').css('opacity', '0.3');
             }
         }
 
@@ -86,6 +88,7 @@ function checkboxAllAction() {
                     $('.total-todo-active').text('0');
                     $(".view:has(.completed)").hide();
                 });
+                $('.toggle-all').parent().find('.toggle-all-svg').css('opacity', '1');
             }else{
                 $(".view:has(.completed)").each(function () {
                     $(this).find(".toggle").prop('checked', false);
@@ -95,6 +98,7 @@ function checkboxAllAction() {
                     updateTotalTodoListActive();
                     $(".view:has(.active)").show();
                 })
+                $('.toggle-all').parent().find('.toggle-all-svg').css('opacity', '0.3');
             }
         }
 
@@ -108,6 +112,7 @@ function checkboxAllAction() {
                     $('.total-todo-active').text('0');
                     $(".view").show();
                 });
+                $('.toggle-all').parent().find('.toggle-all-svg').css('opacity', '1');
             }else{
                 $(".view:has(.completed)").each(function () {
                     $(this).find(".toggle").prop('checked', false);
@@ -117,6 +122,7 @@ function checkboxAllAction() {
                     updateTotalTodoListActive();
                     $(".view").hide();
                 })
+                $('.toggle-all').parent().find('.toggle-all-svg').css('opacity', '0.3');
             }
         }
         isShowClearCompleted();
